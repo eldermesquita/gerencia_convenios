@@ -1,0 +1,65 @@
+
+.company-about {
+    font-size: 14px;
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+svg:not(:root).svg-inline--fa {
+    overflow: visible;
+}
+
+.svg-inline--fa.fa-w-16 {
+    width: 1em;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+
+#skin-default,
+#skin-light,
+#skin-dark {
+	position:relative;
+
+	&:hover {
+		opacity: 0.8;
+		cursor: pointer;
+	}
+
+	&:before {
+		font-family: 'Font Awesome 5 Pro';
+		content: "\f058";
+		font-size: 3rem;
+		position: absolute;
+		display: none;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		justify-content: center;
+		padding-left: 0.75rem;
+		padding-top: 0.25rem;
+		color:var(--success-500);
+	}
+}
+
+body:not(.mod-skin-light):not(.mod-skin-dark) {
+	#skin-default {
+		&:before {
+			display: flex;
+		}
+	}
+}
+

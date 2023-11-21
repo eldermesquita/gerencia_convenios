@@ -1,0 +1,3 @@
+Convenio Controller (Tests\Feature\Controllers\ConvenioController)
+ [x] Exibe lista index convenios
+

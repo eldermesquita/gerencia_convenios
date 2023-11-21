@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="C:\xampp\htdocs\gerencia_convenios\phpunit.xml" tests="1" assertions="8" errors="0" failures="0" skipped="0" time="0.434573">
+    <testsuite name="Feature" tests="1" assertions="8" errors="0" failures="0" skipped="0" time="0.434573">
+      <testsuite name="Tests\Feature\Controllers\ConvenioControllerTest" file="C:\xampp\htdocs\gerencia_convenios\tests\Feature\Controllers\ConvenioControllerTest.php" tests="1" assertions="8" errors="0" failures="0" skipped="0" time="0.434573">
+        <testcase name="exibe_lista_index_convenios" file="C:\xampp\htdocs\gerencia_convenios\tests\Feature\Controllers\ConvenioControllerTest.php" line="48" class="Tests\Feature\Controllers\ConvenioControllerTest" classname="Tests.Feature.Controllers.ConvenioControllerTest" assertions="8" time="0.434573"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

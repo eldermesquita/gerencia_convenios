@@ -1,0 +1,116 @@
+
+@import "../css/light.css";
+
+
+.bd-example {
+    position: relative;
+    padding: 1rem;
+    margin: 1rem -12px 0;
+    border: solid #dee2e6;
+    border-width: 1px 0 0
+}
+
+.bd-example::after {
+    display: block;
+    clear: both;
+    content: ""
+}
+
+@media (min-width: 576px) {
+    .bd-example {
+        padding:1.5rem;
+        margin-right: 0;
+        margin-left: 0;
+        border-width: 1px;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem
+    }
+
+    .bd-example+.bd-clipboard+.highlight {
+        border-bottom-right-radius: .25rem;
+        border-bottom-left-radius: .25rem
+    }
+}
+
+
+footer.footer {
+    background: #fff;
+    direction: ltr;
+    padding: 1rem .875rem
+}
+
+body[data-theme=light] footer.footer {
+    background: linear-gradient(90deg,hsla(0,0%,100%,.5),#fff 3%,#fff)
+}
+
+body[data-theme=colored] footer.footer,body[data-theme=dark] footer.footer {
+    background: #fff
+}
+
+footer.footer ul {
+    margin-bottom: 0
+}
+
+@media(max-width: 767.98px) {
+    footer.footer {
+        width:100vw
+    }
+}
+
+
+/* Assinatura e-design */
+
+.e-design-copyright {
+    font-size: 14px;
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+svg:not(:root).svg-inline--fa {
+    overflow: visible;
+}
+
+.svg-inline--fa.fa-w-16 {
+    width: 1em;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+svg:not(:root).svg-inline--fa {
+    overflow: visible;
+}
+
+.svg-inline--fa.fa-w-16 {
+    width: 1em;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+
+
+
+
+
