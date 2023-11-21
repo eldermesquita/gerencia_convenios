@@ -1,0 +1,119 @@
+{
+  "__plugin-vue_export-helper-c27b6911.js": {
+    "file": "js/_plugin-vue_export-helper-c27b6911.js"
+  },
+  "_funcoes-31773fa7.js": {
+    "file": "js/funcoes-31773fa7.js",
+    "imports": [
+      "_pt-br-f13e6610.js"
+    ]
+  },
+  "_index-4ab0333f.js": {
+    "file": "js/index-4ab0333f.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_pt-br-f13e6610.js": {
+    "file": "js/pt-br-f13e6610.js",
+    "imports": [
+      "__plugin-vue_export-helper-c27b6911.js",
+      "resources/js/app.js"
+    ]
+  },
+  "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-brands-400.ttf": {
+    "file": "css/fa-brands-400-20c4a58b.ttf",
+    "src": "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-brands-400.ttf"
+  },
+  "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-brands-400.woff2": {
+    "file": "css/fa-brands-400-74833209.woff2",
+    "src": "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-brands-400.woff2"
+  },
+  "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-regular-400.ttf": {
+    "file": "css/fa-regular-400-528d022d.ttf",
+    "src": "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-regular-400.ttf"
+  },
+  "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-regular-400.woff2": {
+    "file": "css/fa-regular-400-8e7e5ea1.woff2",
+    "src": "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-regular-400.woff2"
+  },
+  "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-solid-900.ttf": {
+    "file": "css/fa-solid-900-67a65763.ttf",
+    "src": "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-solid-900.ttf"
+  },
+  "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-solid-900.woff2": {
+    "file": "css/fa-solid-900-7152a693.woff2",
+    "src": "resources/adminkit/src/fonts/fontawesome-free-6.4.0-web/webfonts/fa-solid-900.woff2"
+  },
+  "resources/css/app.css": {
+    "file": "css/app-405db5cc.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/Pages/Auth/Login.vue": {
+    "file": "js/Login-209bb78a.js",
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Auth/Login.vue"
+  },
+  "resources/js/Pages/Convenio/Create.vue": {
+    "file": "js/Create-2604d039.js",
+    "imports": [
+      "_pt-br-f13e6610.js",
+      "resources/js/app.js",
+      "_index-4ab0333f.js",
+      "__plugin-vue_export-helper-c27b6911.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Convenio/Create.vue"
+  },
+  "resources/js/Pages/Convenio/Index.vue": {
+    "file": "js/Index-fcad3f8d.js",
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_pt-br-f13e6610.js",
+      "_funcoes-31773fa7.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Convenio/Index.vue"
+  },
+  "resources/js/Pages/Dashboard/Index.css": {
+    "file": "css/Index-4a2b46ef.css",
+    "src": "resources/js/Pages/Dashboard/Index.css"
+  },
+  "resources/js/Pages/Dashboard/Index.vue": {
+    "css": [
+      "css/Index-4a2b46ef.css"
+    ],
+    "file": "js/Index-8128a9ba.js",
+    "imports": [
+      "_pt-br-f13e6610.js",
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_funcoes-31773fa7.js",
+      "_index-4ab0333f.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Dashboard/Index.vue"
+  },
+  "resources/js/app.js": {
+    "dynamicImports": [
+      "resources/js/Pages/Auth/Login.vue",
+      "resources/js/Pages/Convenio/Create.vue",
+      "resources/js/Pages/Convenio/Index.vue",
+      "resources/js/Pages/Dashboard/Index.vue"
+    ],
+    "file": "js/app-c555380b.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/sass/app.scss": {
+    "file": "css/app-f3d5bc2b.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
+  }
+}

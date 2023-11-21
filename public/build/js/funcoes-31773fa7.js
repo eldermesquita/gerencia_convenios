@@ -1,0 +1,2 @@
+import{m as t}from"./pt-br-f13e6610.js";const r={formatarDataPtBr(a){return t(a).tz("America/Sao_Paulo").format("DD/MM/YYYY")},formatarMoedaPtBr(a){return Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(a||0)},formatarMoedaPtBr(a){return Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(a||0)}},{formatarDataPtBr:n,formatarMoedaPtBr:c}=r;export{c as a,n as f,r as u};
+//# sourceMappingURL=funcoes-31773fa7.js.map
