@@ -12,126 +12,65 @@ toastr.options = {
     tapToDismiss: true,
     preventDuplicates: false,
     onclick: null,
-    showDuration: 17300,
-    hideDuration: 17300,
-    timeOut: 17000,
-    timer: 75000,
-    extendedTimeOut: 17000,
+    showDuration: 300,
+    hideDuration: 300,
+    timeOut: 7000,
+    timer: 5000,
+    extendedTimeOut: 1000,
     hideEasing: "linear",
     hideMethod: "fadeOut",
     showEasing: "swing",
     showMethod: "fadeIn",
 };
-/*
- * toast-top-left, toast-top-center, toast-top-right, toast-top-full-width,
- * toast-bottom-left, toast-bottom-center, toast-bottom-right, toast-bottom-full-width
- */
-export default {
-    success(
-        title = "",
-        text = "",
-        position = "center",
-        showConfirmButton = true,
-        timer = 2000
-    ) {
-        Swal.fire({
-            position,
-            icon: "success",
-            title,
-            text,
-            showConfirmButton,
-            timer,
-        });
-    },
 
-    async alert(text = "", title = "", autoClose, icone = "error") {
-        return Swal.fire({
-            icon: icone,
-            title,
-            text,
-            timer: autoClose ? 1500 : null,
-        });
-    },
 
-    async toastr(text = "", title = "", tipoMsg = "success") {
-        return toastr[tipoMsg](title, text);
-    },
+export function exibirAlerta(descricao = "", titulo = "", tipoMsg = "error") {
+    return toastr[tipoMsg](titulo, descricao);
+}
 
-    async toastSwal(title = "", text = "", icone = "success") {
-        const toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener("mouseenter", Swal.stopTimer);
-                toast.addEventListener("mouseleave", Swal.resumeTimer);
-            },
-        });
-        return toast.fire({
-            title,
-            text,
-            icon: icone,
-        });
-    },
-
-    loading(title = "") {
-        Swal.fire({
-            //title,
-            allowOutsideClick: false,
-            allowEscapeKey: true,
-            allowOutsideClick: () => !Swal.isLoading(),
-            /*  onBeforeOpen: () => {
-                Swal.showLoading();
-            }, */
-            didOpen: () => {
-                Swal.showLoading();
-            },
-            /*  width: 400,
-            padding: "3em", */
-            timerProgressBar: true,
-            showConfirmButton: false,
-            html: `<div class='flex-column justify-content-center align-items-center'>${title ? title : 'carregando...'}</div>`,
-        }).then((result) => {
-            Swal.close();
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: `${result}'s avatar`,
-                });
-            }
-        });
-    },
-
-    async confirm(
-        title = "Tem certeza?",
-        text = "Não será possível desfazer esta operação!",
-        confirmButtonText = "Sim",
-        cancelButtonText = "Cancelar"
-    ) {
-        const classes = "";
-        const swalWithBootstrapButtons = Swal.mixin({
-            /* customClass: {
-                confirmButton: `${classes} `,
-                cancelButton: `${classes} `,
-            }, */
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            buttonsStyling: true,
-        });
-
-        return swalWithBootstrapButtons.fire({
-            title,
-            text,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText,
-            cancelButtonText,
-            reverseButtons: true,
-        });
-    },
-
-    close() {
+export function exibirLoading(titulo = "") {
+    Swal.fire({
+        allowEscapeKey: true,
+        allowOutsideClick: () => !Swal.isLoading(),
+        didOpen: () => {
+            Swal.showLoading();
+        },
+        willOpen: () => {
+            Swal.showLoading();
+        },
+        timerProgressBar: true,
+        showConfirmButton: false,
+        html: `<div class='flex-column justify-content-center align-items-center'>${
+            titulo || "Aguarde..."
+        }</div>`,
+    }).then((result) => {
         Swal.close();
-    },
-};
+    });
+}
+
+export function fecharLoading() {
+    Swal.close();
+}
+
+export function confirmarAcao(
+    title = "Tem certeza?",
+    text = "Não será possível desfazer esta operação!",
+    confirmButtonText = "Sim",
+    cancelButtonText = "Cancelar"
+) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        buttonsStyling: true,
+    });
+
+    return swalWithBootstrapButtons.fire({
+        title,
+        text,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText,
+        cancelButtonText,
+        reverseButtons: true,
+    });
+}

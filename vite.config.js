@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from "vite";
+import laravel from "laravel-vite-plugin";
+import vue from "@vitejs/plugin-vue";
 import path from "path";
 
 export default defineConfig({
@@ -16,7 +16,6 @@ export default defineConfig({
             // buildDirectory: '/frontendAssets',
         }),
         vue(),
-
     ],
     // Padrão: público
     // Pasta servida como recurso estático. Os arquivos deste diretório serão servidos em / durante o desenvolvimento,
@@ -39,8 +38,7 @@ export default defineConfig({
             "@util": path.resolve(__dirname, "resources/js/Uteis"),
             "@components": path.resolve(__dirname, "resources/js/Components"),
             "@": path.resolve(__dirname, "resources/js"),
-            ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue.es.js'),
-
+            ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue.es.js"),
         },
     },
     /* css: {
@@ -127,11 +125,10 @@ export default defineConfig({
 
             // external: ['jquery'], // Defina o jQuery como um recurso externo
             output: {
-                chunkFileNames: 'js/[name]-[hash].js',
-                entryFileNames: 'js/[name]-[hash].js',
-                assetFileNames: 'css/[name]-[hash].[ext]',
+                chunkFileNames: "js/[name]-[hash].js",
+                entryFileNames: "js/[name]-[hash].js",
+                assetFileNames: "css/[name]-[hash].[ext]",
             },
-
         },
     },
 });

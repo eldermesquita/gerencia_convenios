@@ -1,8 +1,7 @@
 <template>
     <div class="container-fluid p-0">
-            <!--  <div v-if="$page.props.flash.message">
-                    <FlashMessage />
-                </div> -->
+            <FlashMessage  :flash="flash"  />
+
         <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
         <Btn type="success" @click="notify">Success</Btn>
 
@@ -1216,11 +1215,10 @@ import FlashMessage from "@/Components/FlashMessage.vue";
 import BarChart from "@/Components/GraficoBarra.vue"
 import dialog from "@/Uteis/dialogo";
 import funcoes from '@/Uteis/funcoes';
-import { toast } from 'vue3-toastify';
 
 export default {
     name: "Dashboard/Index",
-    components: { FlashMessage, toast, BarChart  },
+    components: { FlashMessage,  BarChart  },
     props: {
         eventosRealizados: Object,
         errors: Object,
@@ -1265,10 +1263,7 @@ export default {
         this.alerts.push({ key: new Date().getTime() });
         },
 
-        notify() {
-          toast.info('hello', { rtl: true });
-        },
-
+      
 
         updatePassword() {
                 this.form.put(route('user-password.update'), {

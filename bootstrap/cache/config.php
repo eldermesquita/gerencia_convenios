@@ -7,9 +7,9 @@
     'url' => 'http://localhost:8000',
     'asset_url' => NULL,
     'timezone' => 'UTC',
-    'locale' => 'en',
-    'fallback_locale' => 'en',
-    'faker_locale' => 'en_US',
+    'locale' => 'pt-BR',
+    'fallback_locale' => 'pt-BR',
+    'faker_locale' => 'pt-BR',
     'key' => 'base64:GyRyDcTvnY6awyZkq6Q3wVl5GLkPsHpMffibx2inkOU=',
     'cipher' => 'AES-256-CBC',
     'maintenance' => 
