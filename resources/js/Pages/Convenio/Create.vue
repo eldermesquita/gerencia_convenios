@@ -59,21 +59,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 col-md-3">
-                                  <!--   @blur="moedaPtBr('valor_repasse')" -->
-                            <div class="mb-3 form-floating">
-                                <input type="text" class="mb-3 form-control" :class="{ 'is-invalid': errors.valor_repasse }"
-                                   v-model="form.valor_repasse"
-                                    @input="formatarMoedaInput('valor_repasse')"
-                                    ref="refValorRepasse"
-                                    placeholder="Digite o valor">
-                                <label class="form-label" for="valor_repasse">Valor do repasse: <span
-                                        class="text-danger">*</span></label>
-                                <div v-if="errors.valor_repasse" class="invalid-feedback">
-                                    {{ errors.valor_repasse }}
+                    </div>
+                    <div class="row">
+                 <fieldset class="border p-2">
+                              <legend  class="float-none w-auto p-2 text-small">Valores</legend>
+                            <div class="mb-3 col-md-3">
+                                <div class="mb-3 form-floating">
+                                     <Money3  v-bind="configVMoney"  v-model.number="form.valor_repasse" ref="refValorRepasse"
+                                            class="mb-3 form-control" :class="{ 'is-invalid': errors.valor_repasse }"/>
+                                    <label class="form-label" for="valor_repasse">Valor do repasse:
+                                        <span class="text-danger">*</span></label>
+                                    <div v-if="errors.valor_repasse" class="invalid-feedback">
+                                        {{ errors.valor_repasse }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                    </fieldset>
+
                     </div>
 
                     <div class="mb-3 col-md-2">
@@ -128,15 +131,12 @@
     </div>
 </template>
 <script setup>
-import { ref, defineProps } from 'vue';
-import FlashMessage from "@/Components/FlashMessage.vue";
-import { exibirAlerta, exibirLoading, fecharLoading, confirmarAcao } from '@/Uteis/dialogo';
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { ref, defineProps, computed  } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import { formatarDataPtBr, formatarMoedaPtBr, valorMoedaPtBr, formatarMoeda } from '@/Uteis/funcoes';
-
+import FlashMessage from "@/Components/FlashMessage.vue";
+import { exibirAlerta, exibirLoading, fecharLoading } from '@/Uteis/dialogo';
+import { Money3 } from 'v-money3'
 const props = defineProps(['convenios', 'errors', 'flash', 'auth']);
-
 const botaoDesabilitado = ref(false);
 
 
@@ -145,36 +145,42 @@ const form = ref({
     numero: null,
     objeto: null,
     numero_processo: null,
-    valor_repasse: null,
-    valor_contra_partida: null,
-    valor_total: null,
-    valor_liberado_concedente: null,
-    valor_pago: null,
-    valor_liberado: null,
+    valor_repasse: 0,
+    valor_contra_partida: 0,
+    valor_total: 0,
+    valor_liberado_concedente: 0,
+    valor_pago: 0,
+    valor_liberado: 0,
     virgencia: null,
     virgencia_prestacao_contas: null,
     contrato_id: null,
     orgao_id: null,
 });
 
-
+/*
 const formatarMoedaInput = (_campo) => {
     const valorString = form.value[_campo].toString();
     console.log('tag', valorString)
     form.value[_campo] = formatarMoedaPtBr(valorString);
-}
+} */
 
-/* const formatarMoedaInput = (_campo) => {
-    const valorString = form.value[_campo].toString();
-    form.value[_campo] = formatarMoedaPtBr(valorString);
-}; */
+/*****************************************************************
+ *
+ * Configuração do v-money3
+ *
+ *****************************************************************/
+const configVMoney = computed(() => {
+    return {
+        decimal: ',', // Separador decimal
+        thousands: '.', // Separador de milhares
+        prefix: 'R$ ', // Prefixo
+        suffix: '', // Sufixo
+        precision: 2, // Número de casas decimais
+        masked: false // Deixa o campo sem a máscara inicialmente
 
-const formatarInput = () => {
-    // Certifique-se de que valor é uma string
-    const valorString = valor.value.toString();
+    };
+});
 
-    valorFormatado.value = formatarMoeda(valorString);
-};
 
 /*****************************************************************
  *  Salvar
@@ -188,7 +194,7 @@ const salvar = async () => {
      if (!isConfirmed) return; */
 
     exibirLoading('Aguarde...');
-    console.log('tag', Inertia)
+
 
     let method = "post";
     let url = route("convenios.store");
@@ -226,4 +232,14 @@ const salvar = async () => {
 
 }
 </script>
-
+<style>
+legend {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font: bold;
+    line-height: inherit;
+}
+</style>
