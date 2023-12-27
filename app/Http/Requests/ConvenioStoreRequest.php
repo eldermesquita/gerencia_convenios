@@ -21,7 +21,8 @@ class ConvenioStoreRequest extends FormRequest
     {
         return [
             'numero' => ['required', 'max:50', 'string'],
-            'objeto' => ['required', 'max:255', 'string'],
+            'objeto' => ['required', 'string'],
+            'ano' => ['required', 'numeric'],
             'numero_processo' => ['required', 'max:30', 'string'],
             'valor_repasse' => ['required', 'numeric'],
             'valor_contra_partida' => ['required', 'numeric'],
@@ -29,9 +30,8 @@ class ConvenioStoreRequest extends FormRequest
             'valor_liberado_concedente' => ['required', 'numeric'],
             'valor_pago' => ['required', 'numeric'],
             'valor_liberado' => ['required', 'numeric'],
-            'virgencia_execucao' => ['required', 'date'],
-            'virgencia_contrato' => ['required', 'date'],
-            'contrato_id' => ['required', 'exists:contratos,id'],
+            'virgencia_prestacao_contas' => ['required', 'date'],
+            'virgencia' => ['required', 'date'],
             'orgao_id' => ['required', 'exists:orgaos,id'],
         ];
     }

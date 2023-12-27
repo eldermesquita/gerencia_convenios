@@ -12,16 +12,42 @@
                     <div class="row">
                         <div class="mb-3 col-md-3">
                             <div class="mb-3 form-floating">
+                                <select class="form-select" ref="refOIrgaoId" v-model="form.orgao_id"
+                                    aria-label="Selecione o orgão" :class="{ 'is-invalid': errors.orgao_id }">
+                                    <option selected> -- Selecione -- </option>
+                                    <option v-for="(item, index) in  listaOrgoes" :key="index" :value="item.id"
+                                        :selected="form.orgao_id === item.id">
+                                        {{ item.nome }}
+                                    </option>
+                                </select>
+                                <label for="acao_id"> Orgão <span class="text-danger">*</span></label>
+                                <div v-if="errors.orgao_id" class="invalid-feedback">
+                                    {{ errors.orgao_id }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <div class="mb-3 form-floating">
                                 <input type="text" class="mb-3 form-control" required
                                     :class="{ 'is-invalid': errors.numero }" v-model="form.numero" ref="refNumero"
-                                    placeholder="Nº ">
-                                <label for="numero">Número <span class="text-danger">*</span></label>
+                                    placeholder="Nº convênios">
+                                <label for="numero">Número do convênios <span class="text-danger">*</span></label>
                                 <div v-if="errors.numero" class="invalid-feedback">
                                     {{ errors.numero }}
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 col-md-3">
+                        <div class="mb-3 col-md-1">
+                            <div class="mb-3 form-floating">
+                                <input type="text" class="mb-3 form-control" required :class="{ 'is-invalid': errors.ano }"
+                                    v-model="form.ano" ref="refAno" placeholder="Nº convênios">
+                                <label for="ano">Ano do convênios <span class="text-danger">*</span></label>
+                                <div v-if="errors.ano" class="invalid-feedback">
+                                    {{ errors.ano }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
                             <div class="mb-3 form-floating">
                                 <input type="text" class="mb-3 form-control" required
                                     :class="{ 'is-invalid': errors.numero_processo }" v-model="form.numero_processo"
@@ -33,12 +59,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 col-md-3">
+                        <div class="mb-3 col-md-2">
 
                             <div class="mb-3 form-floating">
                                 <input type="date" class="mb-3 form-control" required
                                     :class="{ 'is-invalid': errors.virgencia }" v-model="form.virgencia" ref="refVirgencia"
-                                    placeholder="Nº ">
+                                    placeholder="Virgência">
                                 <label class="form-label" for="virgencia">Virgência: <span
                                         class="text-danger">*</span></label>
                                 <div v-if="errors.virgencia" class="invalid-feedback">
@@ -51,7 +77,7 @@
                                 <input type="date" class="mb-3 form-control" required
                                     :class="{ 'is-invalid': errors.virgencia_prestacao_contas }"
                                     v-model="form.virgencia_prestacao_contas" ref="refVirgenciaPrestacaoContas"
-                                    placeholder="Data ">
+                                    placeholder="Data prestação de contas">
                                 <label class="form-label" for="virgencia_prestacao_contas">Virgência prestação contas: <span
                                         class="text-danger">*</span></label>
                                 <div v-if="errors.virgencia_prestacao_contas" class="invalid-feedback">
@@ -60,55 +86,100 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                 <fieldset class="border p-2">
-                              <legend  class="float-none w-auto p-2 text-small">Valores</legend>
-                            <div class="mb-3 col-md-3">
-                                <div class="mb-3 form-floating">
-                                     <Money3  v-bind="configVMoney"  v-model.number="form.valor_repasse" ref="refValorRepasse"
-                                            class="mb-3 form-control" :class="{ 'is-invalid': errors.valor_repasse }"/>
-                                    <label class="form-label" for="valor_repasse">Valor do repasse:
-                                        <span class="text-danger">*</span></label>
-                                    <div v-if="errors.valor_repasse" class="invalid-feedback">
-                                        {{ errors.valor_repasse }}
+
+                    <div class="row mb-4">
+                        <fieldset class="border p-2">
+                            <legend class="float-none w-auto p-2 text-small">Valores</legend>
+                            <div class="row">
+                                <div class="mb-3 col-md-2">
+                                    <div class="mb-3 form-floating">
+                                        <Money3 v-bind="configVMoney" v-model.number="form.valor_repasse"
+                                            ref="refValorRepasse" class="mb-3 form-control"
+                                            :class="{ 'is-invalid': errors.valor_repasse }" />
+                                        <label class="form-label" for="valor_repasse">Valor do repasse:
+                                            <span class="text-danger">*</span></label>
+                                        <div v-if="errors.valor_repasse" class="invalid-feedback">
+                                            {{ errors.valor_repasse }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div class="mb-3 form-floating">
+                                        <Money3 v-bind="configVMoney" v-model.number="form.valor_contra_partida"
+                                            ref="refValorContraPartida" class="mb-3 form-control"
+                                            :class="{ 'is-invalid': errors.valor_contra_partida }" />
+                                        <label class="form-label" for="valor_contra_partida">Valor contra partida:
+                                            <span class="text-danger">*</span></label>
+                                        <div v-if="errors.valor_contra_partida" class="invalid-feedback">
+                                            {{ errors.valor_contra_partida }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div class="mb-3 form-floating">
+                                        <Money3 v-bind="configVMoney" v-model.number="form.valor_total" ref="refValorTotal"
+                                            class="mb-3 form-control" :class="{ 'is-invalid': errors.valor_total }" />
+                                        <label class="form-label" for="valor_total">Valor total:
+                                            <span class="text-danger">*</span></label>
+                                        <div v-if="errors.valor_total" class="invalid-feedback">
+                                            {{ errors.valor_total }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div class="mb-3 form-floating">
+                                        <Money3 v-bind="configVMoney" v-model.number="form.valor_liberado_concedente"
+                                            ref="refValorLiberadoConcedente" class="mb-3 form-control"
+                                            :class="{ 'is-invalid': errors.valor_liberado_concedente }" />
+                                        <label class="form-label" for="valor_liberado_concedente">Valor liberado concedente:
+                                            <span class="text-danger">*</span></label>
+                                        <div v-if="errors.valor_liberado_concedente" class="invalid-feedback">
+                                            {{ errors.valor_liberado_concedente }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div class="mb-3 form-floating">
+                                        <Money3 v-bind="configVMoney" v-model.number="form.valor_liberado"
+                                            ref="refValorLiberado" class="mb-3 form-control"
+                                            :class="{ 'is-invalid': errors.valor_liberado }" />
+                                        <label class="form-label" for="valor_liberado">Valor liberado:
+                                            <span class="text-danger">*</span></label>
+                                        <div v-if="errors.valor_liberado" class="invalid-feedback">
+                                            {{ errors.valor_liberado }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <div class="mb-3 form-floating">
+                                        <Money3 v-bind="configVMoney" v-model.number="form.valor_pago" ref="refValorPago"
+                                            class="mb-3 form-control" :class="{ 'is-invalid': errors.valor_pago }" />
+                                        <label class="form-label" for="valor_pago">Valor pago:
+                                            <span class="text-danger">*</span></label>
+                                        <div v-if="errors.valor_pago" class="invalid-feedback">
+                                            {{ errors.valor_pago }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                    </fieldset>
-
+                        </fieldset>
                     </div>
+                    <div class="mb-3 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div id="scrolling-container">
+                            <div id="quill-container">
+                                <label class="form-label" for="resumo">Objeto <span class="text-danger">*</span></label>
 
-                    <div class="mb-3 col-md-2">
-                        <label class="form-label" for="inputAddress2">Address 2</label>
-                        <input type="text" class="mb-3 form-control form-control-lg" id="inputAddress2"
-                            placeholder="Apartment, studio, or floor">
-                    </div>
+                                <QuillEditor theme="snow" ref="refObjeto" toolbar="essential" v-model:content="form.objeto"
+                                    :placeholder="`Descrição do objeto`" contentType="html" />
+                            </div>
 
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" for="inputCity">City</label>
-                            <input type="text" class="mb-3 form-control form-control-lg" id="inputCity">
+
                         </div>
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label" for="inputState">State</label>
-                            <select id="inputState" class="mb-3 form-control form-control-lg">
-                                <option selected="">Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="mb-3 col-md-2">
-                            <label class="form-label" for="inputZip">Zip</label>
-                            <input type="text" class="mb-3 form-control form-control-lg" id="inputZip">
+                        <div v-if="errors.objeto" class="invalid-feedback">
+                            {{ errors.objeto }}
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            <input type="checkbox" class="form-check-input">
-                            <span class="form-check-label">Check me out</span>
-                        </label>
-                    </div>
-
 
                     <div class="modal-footer">
                         <Link :href="route('convenios.index')" class="btn btn-secondary ">
@@ -131,13 +202,18 @@
     </div>
 </template>
 <script setup>
-import { ref, defineProps, computed  } from 'vue';
+import { ref, defineProps, computed, onMounted  } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import FlashMessage from "@/Components/FlashMessage.vue";
 import { exibirAlerta, exibirLoading, fecharLoading } from '@/Uteis/dialogo';
+import axios from '@/Uteis/axiosInterceptor';
 import { Money3 } from 'v-money3'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 const props = defineProps(['convenios', 'errors', 'flash', 'auth']);
+
 const botaoDesabilitado = ref(false);
+
 
 
 const form = ref({
@@ -181,10 +257,19 @@ const configVMoney = computed(() => {
     };
 });
 
+const listaOrgoes = ref([]);
 
+onMounted(async () => {
+    try {
+        const response = await axios.get(route('orgaos.lista'));
+        ///console.log(' requisição:',  response);
+        listaOrgoes.value = response.data;
+    } catch (error) {
+        console.log('Erro na requisição:',  error.message);
+    }
+});
 /*****************************************************************
  *  Salvar
- *
  *****************************************************************/
 const salvar = async () => {
     // Alterar o estado do botão ao iniciar a requisição
@@ -202,13 +287,13 @@ const salvar = async () => {
         method = "put";
         url = route("convenios.update", form.value.id);
     }
-        // Simulando um processo assíncrono
-        /*
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            botaoDesabilitado.value = false;
-            exibirAlerta("Salvo com sucesso!", 'teste teste', "success");
-            fecharLoading();
-        */
+    // Simulando um processo assíncrono
+    /*
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        botaoDesabilitado.value = false;
+        exibirAlerta("Salvo com sucesso!", 'teste teste', "success");
+        fecharLoading();
+    */
 
     Inertia.visit(url, {
         method: method,
