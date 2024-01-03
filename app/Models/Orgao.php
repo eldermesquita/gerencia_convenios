@@ -17,8 +17,8 @@ class Orgao extends Model
 
     public $timestamps = false;
 
-    public function convenios()
+    public function processos()
     {
-        return $this->hasMany(Convenio::class);
+        return $this->hasMany(Processo::class);
     }
 }

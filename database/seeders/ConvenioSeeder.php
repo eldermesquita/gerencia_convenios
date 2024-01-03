@@ -13,7 +13,7 @@ class ConvenioSeeder extends Seeder
     public function run(): void
     {
         Convenio::factory()
-            ->count(50)
+            ->count(20)
             ->create();
     }
 }

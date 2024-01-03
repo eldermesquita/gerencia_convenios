@@ -24,37 +24,22 @@ class ConvenioFactory extends Factory
      */
     public function definition(): array
     {
-        $numeroProcesso = Str::upper( $this->faker->randomLetter . $this->faker->randomLetter )
-        .'-'. $this->faker->unique()->randomNumber(4) .'/'. date('Y');
-
-        $orgaos = Orgao::inRandomOrder()->first();
-
 
         return [
             'numero' => $this->faker->unique()->randomNumber(6),
             'ano' => Carbon::now()->addYears(rand(-5, 5))->year,
             'objeto' => $this->faker->sentence,
-            'numero_processo' => $numeroProcesso,
-            'ano_processo' => Carbon::now()->addYears(rand(-5, 5))->year,
-            'valor_repasse' => $this->faker->randomFloat(2, 100, 10000),
-            'valor_contra_partida' => $this->faker->randomFloat(2, 100, 10000),
-            'valor_total' => $this->faker->randomFloat(2, 200, 20000),
-            'valor_liberado_concedente' => $this->faker->randomFloat(2, 50, 10000),
-            'valor_pago' => $this->faker->randomFloat(2, 50, 10000),
-            'valor_liberado' => $this->faker->randomFloat(2, 100, 20000),
-            'virgencia' => $this->faker->date(),
-            'virgencia_prestacao_contas' => function (array $attributes) {
-                $virgencia = new \DateTime($attributes['virgencia']);
-                $virgenciaPrestacaoContas = $virgencia->modify('+60 days')->format('Y-m-d');
-                return $virgenciaPrestacaoContas;
+            'valor_repasse' => $this->faker->randomFloat(2, 100000, 10000000),
+            'valor_contrapartida' => $this->faker->randomFloat(2, 100, 10000),
+            'inicio_vigencia' => $this->faker->date(),
+            'fim_vigencia' => $this->faker->date(),
+            'vigencia_prestacao_contas' => function (array $attributes) {
+                // a partir desta fim_vigencia  a data limite  60 dias para a  virgencia_prestacao_contas
+                $prestacaoContas = new \DateTime($attributes['fim_vigencia']);
+                return $prestacaoContas->modify('+60 days')->format('Y-m-d');
             },
-            'contrato_id' => \App\Models\Contrato::factory(),
-            'orgao_id' =>  $orgaos->id ?? \App\Models\Orgao::factory(),
+            'parlamentar_id' => \App\Models\Parlamentar::factory(),
 
-            /*
-            $table->date('virgencia'); /// a partir desta data  a data padrão 60 dias para virgencia_prestacao_contas
-            $table->date('virgencia_prestacao_contas'); // 60 dias
-            */
         ];
     }
 }

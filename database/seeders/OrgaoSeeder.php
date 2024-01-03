@@ -27,7 +27,7 @@ class OrgaoSeeder extends Seeder
                 'municipal',
                 'outros',
         ];
-    
+
         foreach ($municipios as $key => $row) {
             Orgao::create([
                 'nome' => $row,

@@ -21,7 +21,6 @@ class ContratoUpdateRequest extends FormRequest
     {
         return [
             'numero' => ['required', 'max:255', 'string'],
-            'numero_processo' => ['required', 'max:15', 'string'],
             'virgencia' => ['required', 'date'],
             'virgencia_execucao' => ['required', 'date'],
             'valor' => ['required', 'numeric'],
@@ -30,6 +29,7 @@ class ContratoUpdateRequest extends FormRequest
                 'in:concorrência,convite,tomada de preço,concurso,pregão,leilão',
             ],
             'empresa_id' => ['required', 'exists:empresas,id'],
+            'processo_id' => ['required', 'exists:processos,id'],
         ];
     }
 }

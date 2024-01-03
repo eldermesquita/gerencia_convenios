@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use App\Models\Usuario;
 use App\Models\Convenio;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,55 +13,55 @@ class ConvenioPolicy
     /**
      * Determine whether the convenio can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('list convenios');
+        return $usuario->hasPermissionTo('list convenios');
     }
 
     /**
      * Determine whether the convenio can view the model.
      */
-    public function view(User $user, Convenio $model): bool
+    public function view(Usuario $usuario, Convenio $model): bool
     {
-        return $user->hasPermissionTo('view convenios');
+        return $usuario->hasPermissionTo('view convenios');
     }
 
     /**
      * Determine whether the convenio can create models.
      */
-    public function create(User $user): bool
+    public function create(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('create convenios');
+        return $usuario->hasPermissionTo('create convenios');
     }
 
     /**
      * Determine whether the convenio can update the model.
      */
-    public function update(User $user, Convenio $model): bool
+    public function update(Usuario $usuario, Convenio $model): bool
     {
-        return $user->hasPermissionTo('update convenios');
+        return $usuario->hasPermissionTo('update convenios');
     }
 
     /**
      * Determine whether the convenio can delete the model.
      */
-    public function delete(User $user, Convenio $model): bool
+    public function delete(Usuario $usuario, Convenio $model): bool
     {
-        return $user->hasPermissionTo('delete convenios');
+        return $usuario->hasPermissionTo('delete convenios');
     }
 
     /**
-     * Determine whether the user can delete multiple instances of the model.
+     * Determine whether the usuario can delete multiple instances of the model.
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('delete convenios');
+        return $usuario->hasPermissionTo('delete convenios');
     }
 
     /**
      * Determine whether the convenio can restore the model.
      */
-    public function restore(User $user, Convenio $model): bool
+    public function restore(Usuario $usuario, Convenio $model): bool
     {
         return false;
     }
@@ -69,7 +69,7 @@ class ConvenioPolicy
     /**
      * Determine whether the convenio can permanently delete the model.
      */
-    public function forceDelete(User $user, Convenio $model): bool
+    public function forceDelete(Usuario $usuario, Convenio $model): bool
     {
         return false;
     }

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Empresa;
+use App\Models\Usuario;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class EmpresaPolicy
@@ -13,55 +13,55 @@ class EmpresaPolicy
     /**
      * Determine whether the empresa can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('list empresas');
+        return $usuario->hasPermissionTo('list empresas');
     }
 
     /**
      * Determine whether the empresa can view the model.
      */
-    public function view(User $user, Empresa $model): bool
+    public function view(Usuario $usuario, Empresa $model): bool
     {
-        return $user->hasPermissionTo('view empresas');
+        return $usuario->hasPermissionTo('view empresas');
     }
 
     /**
      * Determine whether the empresa can create models.
      */
-    public function create(User $user): bool
+    public function create(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('create empresas');
+        return $usuario->hasPermissionTo('create empresas');
     }
 
     /**
      * Determine whether the empresa can update the model.
      */
-    public function update(User $user, Empresa $model): bool
+    public function update(Usuario $usuario, Empresa $model): bool
     {
-        return $user->hasPermissionTo('update empresas');
+        return $usuario->hasPermissionTo('update empresas');
     }
 
     /**
      * Determine whether the empresa can delete the model.
      */
-    public function delete(User $user, Empresa $model): bool
+    public function delete(Usuario $usuario, Empresa $model): bool
     {
-        return $user->hasPermissionTo('delete empresas');
+        return $usuario->hasPermissionTo('delete empresas');
     }
 
     /**
-     * Determine whether the user can delete multiple instances of the model.
+     * Determine whether the usuario can delete multiple instances of the model.
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('delete empresas');
+        return $usuario->hasPermissionTo('delete empresas');
     }
 
     /**
      * Determine whether the empresa can restore the model.
      */
-    public function restore(User $user, Empresa $model): bool
+    public function restore(Usuario $usuario, Empresa $model): bool
     {
         return false;
     }
@@ -69,7 +69,7 @@ class EmpresaPolicy
     /**
      * Determine whether the empresa can permanently delete the model.
      */
-    public function forceDelete(User $user, Empresa $model): bool
+    public function forceDelete(Usuario $usuario, Empresa $model): bool
     {
         return false;
     }

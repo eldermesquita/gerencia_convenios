@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Orgao;
+use App\Models\Usuario;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OrgaoPolicy
@@ -13,55 +13,55 @@ class OrgaoPolicy
     /**
      * Determine whether the orgao can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('list orgaos');
+        return $usuario->hasPermissionTo('list orgaos');
     }
 
     /**
      * Determine whether the orgao can view the model.
      */
-    public function view(User $user, Orgao $model): bool
+    public function view(Usuario $usuario, Orgao $model): bool
     {
-        return $user->hasPermissionTo('view orgaos');
+        return $usuario->hasPermissionTo('view orgaos');
     }
 
     /**
      * Determine whether the orgao can create models.
      */
-    public function create(User $user): bool
+    public function create(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('create orgaos');
+        return $usuario->hasPermissionTo('create orgaos');
     }
 
     /**
      * Determine whether the orgao can update the model.
      */
-    public function update(User $user, Orgao $model): bool
+    public function update(Usuario $usuario, Orgao $model): bool
     {
-        return $user->hasPermissionTo('update orgaos');
+        return $usuario->hasPermissionTo('update orgaos');
     }
 
     /**
      * Determine whether the orgao can delete the model.
      */
-    public function delete(User $user, Orgao $model): bool
+    public function delete(Usuario $usuario, Orgao $model): bool
     {
-        return $user->hasPermissionTo('delete orgaos');
+        return $usuario->hasPermissionTo('delete orgaos');
     }
 
     /**
-     * Determine whether the user can delete multiple instances of the model.
+     * Determine whether the usuario can delete multiple instances of the model.
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('delete orgaos');
+        return $usuario->hasPermissionTo('delete orgaos');
     }
 
     /**
      * Determine whether the orgao can restore the model.
      */
-    public function restore(User $user, Orgao $model): bool
+    public function restore(Usuario $usuario, Orgao $model): bool
     {
         return false;
     }
@@ -69,7 +69,7 @@ class OrgaoPolicy
     /**
      * Determine whether the orgao can permanently delete the model.
      */
-    public function forceDelete(User $user, Orgao $model): bool
+    public function forceDelete(Usuario $usuario, Orgao $model): bool
     {
         return false;
     }

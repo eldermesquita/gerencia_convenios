@@ -10,7 +10,7 @@
             <div class="card-body">
                 <form>
                     <div class="row">
-                        <div class="mb-3 col-md-3">
+                        <div class="mb-3 col-md-6">
                             <div class="mb-3 form-floating">
                                 <select class="form-select" ref="refOIrgaoId" v-model="form.orgao_id"
                                     aria-label="Selecione o orgão" :class="{ 'is-invalid': errors.orgao_id }">
@@ -20,15 +20,15 @@
                                         {{ item.nome }}
                                     </option>
                                 </select>
-                                <label for="acao_id"> Orgão <span class="text-danger">*</span></label>
+                                <label for="acao_id"> Órgão Proponente <span class="text-danger">*</span></label>
                                 <div v-if="errors.orgao_id" class="invalid-feedback">
                                     {{ errors.orgao_id }}
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 col-md-2">
+                        <div class="mb-3 col-md-4">
                             <div class="mb-3 form-floating">
-                                <input type="text" class="mb-3 form-control" required
+                                <input type="text" class="mb-3 form-control"
                                     :class="{ 'is-invalid': errors.numero }" v-model="form.numero" ref="refNumero"
                                     placeholder="Nº convênios">
                                 <label for="numero">Número do convênios <span class="text-danger">*</span></label>
@@ -37,17 +37,33 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 col-md-1">
+                        <div class="mb-3 col-md-2">
                             <div class="mb-3 form-floating">
-                                <input type="text" class="mb-3 form-control" required :class="{ 'is-invalid': errors.ano }"
-                                    v-model="form.ano" ref="refAno" placeholder="Nº convênios">
+                                <input type="text" class="mb-3 form-control"  :class="{ 'is-invalid': errors.ano }"
+                                    v-model="form.ano" ref="refAno" placeholder="Ano do convênios">
                                 <label for="ano">Ano do convênios <span class="text-danger">*</span></label>
                                 <div v-if="errors.ano" class="invalid-feedback">
                                     {{ errors.ano }}
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 col-md-2">
+                        <div class="mb-3 col-md-6">
+                                <div class="mb-3 form-floating">
+                                    <select class="form-select" ref="refParlamentarId" v-model="form.parlamentar_id"
+                                        aria-label="Selecione o parlamentar" :class="{ 'is-invalid': errors.parlamentar_id }">
+                                        <option selected> -- Selecione -- </option>
+                                        <option v-for="(item, index) in  listaParlamentares" :key="index" :value="item.id"
+                                            :selected="form.parlamentar_id === item.id">
+                                            {{ item.nome }}
+                                        </option>
+                                    </select>
+                                    <label for="acao_id"> Parlamentar </label>
+                                    <div v-if="errors.parlamentar_id" class="invalid-feedback">
+                                        {{ errors.parlamentar_id }}
+                                    </div>
+                                </div>
+                      </div>
+                        <div class="mb-3 col-md-4">
                             <div class="mb-3 form-floating">
                                 <input type="text" class="mb-3 form-control" required
                                     :class="{ 'is-invalid': errors.numero_processo }" v-model="form.numero_processo"
@@ -60,62 +76,93 @@
                             </div>
                         </div>
                         <div class="mb-3 col-md-2">
+                            <div class="mb-3 form-floating">
+                                <input type="text" class="mb-3 form-control"
+                                    :class="{ 'is-invalid': errors.ano_processo }" v-model="form.ano_processo" ref="refAnoProcesso"
+                                    placeholder="Ano processo">
+                                <label for="ano_processo">Ano do processo <span class="text-danger">*</span></label>
+                                <div v-if="errors.ano_processo" class="invalid-feedback">
+                                    {{ errors.ano_processo }}
+                                </div>
+                            </div>
+                        </div>
 
-                            <div class="mb-3 form-floating">
-                                <input type="date" class="mb-3 form-control" required
-                                    :class="{ 'is-invalid': errors.virgencia }" v-model="form.virgencia" ref="refVirgencia"
-                                    placeholder="Virgência">
-                                <label class="form-label" for="virgencia">Virgência: <span
-                                        class="text-danger">*</span></label>
-                                <div v-if="errors.virgencia" class="invalid-feedback">
-                                    {{ errors.virgencia }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3 col-md-2">
-                            <div class="mb-3 form-floating">
-                                <input type="date" class="mb-3 form-control" required
-                                    :class="{ 'is-invalid': errors.virgencia_prestacao_contas }"
-                                    v-model="form.virgencia_prestacao_contas" ref="refVirgenciaPrestacaoContas"
-                                    placeholder="Data prestação de contas">
-                                <label class="form-label" for="virgencia_prestacao_contas">Virgência prestação contas: <span
-                                        class="text-danger">*</span></label>
-                                <div v-if="errors.virgencia_prestacao_contas" class="invalid-feedback">
-                                    {{ errors.virgencia_prestacao_contas }}
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row mb-4">
                         <fieldset class="border p-2">
+                            <legend class="float-none w-auto p-2 text-small">Datas</legend>
+                            <div class="row">
+                                <div class="mb-3 col-lg-4">
+                                   <div class="mb-3 form-floating">
+                                    <input type="date" class="mb-3 form-control"
+                                        :class="{ 'is-invalid': errors.inicio_virgencia }" v-model="form.inicio_virgencia" ref="refInicioVirgencia"
+                                        placeholder="Data início da virgência">
+                                    <label class="form-label" for="inicio_virgencia">Início virgência: <span
+                                            class="text-danger">*</span></label>
+                                    <div v-if="errors.inicio_virgencia" class="invalid-feedback">
+                                        {{ errors.inicio_virgencia }}
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="mb-3 col-lg-4">
+                                    <div class="mb-3 form-floating">
+                                    <input type="date" class="mb-3 form-control"
+                                        :class="{ 'is-invalid': errors.fim_virgencia }" v-model="form.fim_virgencia" ref="refFimVirgencia"
+                                        placeholder="Data Fim da virgência">
+                                    <label class="form-label" for="fim_virgencia">Início virgência: <span
+                                            class="text-danger">*</span></label>
+                                    <div v-if="errors.fim_virgencia" class="invalid-feedback">
+                                        {{ errors.fim_virgencia }}
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="mb-3 col-lg-4">
+                                    <div class="mb-3 form-floating">
+                                    <input type="date" class="mb-3 form-control"
+                                        :class="{ 'is-invalid': errors.virgencia_prestacao_contas }"
+                                        v-model="form.virgencia_prestacao_contas" ref="refVirgenciaPrestacaoContas"
+                                        placeholder="Data prestação de contas">
+                                    <label class="form-label" for="virgencia_prestacao_contas">Virgência prestação contas: <span
+                                            class="text-danger">*</span></label>
+                                    <div v-if="errors.virgencia_prestacao_contas" class="invalid-feedback">
+                                        {{ errors.virgencia_prestacao_contas }}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                    <div class="row mb-4">
+                        <fieldset class="border p-2">
                             <legend class="float-none w-auto p-2 text-small">Valores</legend>
                             <div class="row">
-                                <div class="mb-3 col-md-2">
+                                <div class="mb-3 col-lg-6">
                                     <div class="mb-3 form-floating">
                                         <Money3 v-bind="configVMoney" v-model.number="form.valor_repasse"
                                             ref="refValorRepasse" class="mb-3 form-control"
                                             :class="{ 'is-invalid': errors.valor_repasse }" />
-                                        <label class="form-label" for="valor_repasse">Valor do repasse:
+                                        <label class="form-label" for="valor_repasse">Valor de repasse:
                                             <span class="text-danger">*</span></label>
                                         <div v-if="errors.valor_repasse" class="invalid-feedback">
                                             {{ errors.valor_repasse }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 col-md-2">
+                                <div class="mb-3 col-lg-6">
                                     <div class="mb-3 form-floating">
-                                        <Money3 v-bind="configVMoney" v-model.number="form.valor_contra_partida"
+                                        <Money3 v-bind="configVMoney" v-model.number="form.valor_contrapartida"
                                             ref="refValorContraPartida" class="mb-3 form-control"
-                                            :class="{ 'is-invalid': errors.valor_contra_partida }" />
-                                        <label class="form-label" for="valor_contra_partida">Valor contra partida:
+                                            :class="{ 'is-invalid': errors.valor_contrapartida }" />
+                                        <label class="form-label" for="valor_contrapartida">Valor Contrapartida:
                                             <span class="text-danger">*</span></label>
-                                        <div v-if="errors.valor_contra_partida" class="invalid-feedback">
-                                            {{ errors.valor_contra_partida }}
+                                        <div v-if="errors.valor_contrapartida" class="invalid-feedback">
+                                            {{ errors.valor_contrapartida }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 col-md-2">
+                                <!-- <div class="mb-3 col-md-2">
                                     <div class="mb-3 form-floating">
                                         <Money3 v-bind="configVMoney" v-model.number="form.valor_total" ref="refValorTotal"
                                             class="mb-3 form-control" :class="{ 'is-invalid': errors.valor_total }" />
@@ -160,11 +207,13 @@
                                             {{ errors.valor_pago }}
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                         </fieldset>
                     </div>
+
+
                     <div class="mb-3 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <div id="scrolling-container">
                             <div id="quill-container">
@@ -205,7 +254,7 @@
 import { ref, defineProps, computed, onMounted  } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import FlashMessage from "@/Components/FlashMessage.vue";
-import { exibirAlerta, exibirLoading, fecharLoading } from '@/Uteis/dialogo';
+import { exibirAlerta, exibirAlerta2, exibirLoading, fecharLoading } from '@/Uteis/dialogo';
 import axios from '@/Uteis/axiosInterceptor';
 import { Money3 } from 'v-money3'
 import { QuillEditor } from '@vueup/vue-quill'
@@ -219,18 +268,17 @@ const botaoDesabilitado = ref(false);
 const form = ref({
     id: null,
     numero: null,
+    ano: null,
     objeto: null,
     numero_processo: null,
+    ano_processo: null,
     valor_repasse: 0,
-    valor_contra_partida: 0,
-    valor_total: 0,
-    valor_liberado_concedente: 0,
-    valor_pago: 0,
-    valor_liberado: 0,
-    virgencia: null,
+    valor_contrapartida: 0,
+    inicio_virgencia: null,
+    fim_virgencia: null,
     virgencia_prestacao_contas: null,
-    contrato_id: null,
-    orgao_id: null,
+    parlamentar_id: 0,
+    orgao_id: 0,
 });
 
 /*
@@ -258,14 +306,19 @@ const configVMoney = computed(() => {
 });
 
 const listaOrgoes = ref([]);
+const listaParlamentares = ref([]);
 
 onMounted(async () => {
     try {
+        exibirLoading("Aguarde...");
+
         const response = await axios.get(route('orgaos.lista'));
-        ///console.log(' requisição:',  response);
+        const response1 = await axios.get(route('parlamentares.lista'));
         listaOrgoes.value = response.data;
+        listaParlamentares.value = response1.data;
+
     } catch (error) {
-        console.log('Erro na requisição:',  error.message);
+        console.log('Erro ao processar as requisições:', error.message);
     }
 });
 /*****************************************************************
@@ -297,7 +350,7 @@ const salvar = async () => {
 
     Inertia.visit(url, {
         method: method,
-        data: form,
+        data: form.value,
         preserveScroll: true,
         preserveState: true,
         onSuccess: () => {
@@ -305,7 +358,7 @@ const salvar = async () => {
         },
         onError: (errors) => {
             for (let [key, value] of Object.entries(errors)) {
-                exibirAlerta('', value, "error");
+                exibirAlerta2('', value, "error");
             }
         },
         onFinish: () => {

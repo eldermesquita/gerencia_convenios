@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -12,20 +13,13 @@ return new class extends Migration {
     {
         Schema::create('contratos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->year('ano');
             $table->string('numero');
-            $table->string('numero_processo', 15);
             $table->date('virgencia');
             $table->date('virgencia_execucao');
             $table->double('valor', 10, 2);
-            $table->enum('modalidade', [
-                'concorrência',
-                'convite',
-                'tomada de preço',
-                'concurso',
-                'pregão',
-                'leilão',
-            ]);
             $table->unsignedBigInteger('empresa_id');
+            $table->unsignedBigInteger('processo_id');
         });
     }
 

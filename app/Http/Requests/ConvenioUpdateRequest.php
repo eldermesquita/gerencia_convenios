@@ -21,18 +21,16 @@ class ConvenioUpdateRequest extends FormRequest
     {
         return [
             'numero' => ['required', 'max:50', 'string'],
+            'ano' => ['required', 'numeric'],
             'objeto' => ['required', 'max:255', 'string'],
+            'ano_processo' => ['required', 'numeric'],
             'numero_processo' => ['required', 'max:30', 'string'],
             'valor_repasse' => ['required', 'numeric'],
-            'valor_contra_partida' => ['required', 'numeric'],
-            'valor_total' => ['required', 'numeric'],
-            'valor_liberado_concedente' => ['required', 'numeric'],
-            'valor_pago' => ['required', 'numeric'],
-            'valor_liberado' => ['required', 'numeric'],
-            'virgencia_execucao' => ['required', 'date'],
-            'virgencia_contrato' => ['required', 'date'],
-            'contrato_id' => ['required', 'exists:contratos,id'],
-            'orgao_id' => ['required', 'exists:orgaos,id'],
+            'valor_contrapartida' => ['required', 'numeric'],
+            'inicio_vigencia' => ['required', 'date'],
+            'fim_vigencia' => ['required', 'date'],
+            'vigencia_prestacao_contas' => ['nullable', 'date'],
+            'parlamentar_id' => ['nullable', 'exists:parlamentares,id'],
         ];
     }
 }

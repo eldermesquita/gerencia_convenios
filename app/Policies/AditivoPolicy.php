@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Aditivo;
+use App\Models\Usuario;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AditivoPolicy
@@ -13,55 +13,55 @@ class AditivoPolicy
     /**
      * Determine whether the aditivo can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('list aditivos');
+        return $usuario->hasPermissionTo('list aditivos');
     }
 
     /**
      * Determine whether the aditivo can view the model.
      */
-    public function view(User $user, Aditivo $model): bool
+    public function view(Usuario $usuario, Aditivo $model): bool
     {
-        return $user->hasPermissionTo('view aditivos');
+        return $usuario->hasPermissionTo('view aditivos');
     }
 
     /**
      * Determine whether the aditivo can create models.
      */
-    public function create(User $user): bool
+    public function create(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('create aditivos');
+        return $usuario->hasPermissionTo('create aditivos');
     }
 
     /**
      * Determine whether the aditivo can update the model.
      */
-    public function update(User $user, Aditivo $model): bool
+    public function update(Usuario $usuario, Aditivo $model): bool
     {
-        return $user->hasPermissionTo('update aditivos');
+        return $usuario->hasPermissionTo('update aditivos');
     }
 
     /**
      * Determine whether the aditivo can delete the model.
      */
-    public function delete(User $user, Aditivo $model): bool
+    public function delete(Usuario $usuario, Aditivo $model): bool
     {
-        return $user->hasPermissionTo('delete aditivos');
+        return $usuario->hasPermissionTo('delete aditivos');
     }
 
     /**
-     * Determine whether the user can delete multiple instances of the model.
+     * Determine whether the usuario can delete multiple instances of the model.
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(Usuario $usuario): bool
     {
-        return $user->hasPermissionTo('delete aditivos');
+        return $usuario->hasPermissionTo('delete aditivos');
     }
 
     /**
      * Determine whether the aditivo can restore the model.
      */
-    public function restore(User $user, Aditivo $model): bool
+    public function restore(Usuario $usuario, Aditivo $model): bool
     {
         return false;
     }
@@ -69,7 +69,7 @@ class AditivoPolicy
     /**
      * Determine whether the aditivo can permanently delete the model.
      */
-    public function forceDelete(User $user, Aditivo $model): bool
+    public function forceDelete(Usuario $usuario, Aditivo $model): bool
     {
         return false;
     }

@@ -13,12 +13,12 @@ class Contrato extends Model
 
     protected $fillable = [
         'numero',
-        'numero_processo',
         'virgencia',
         'virgencia_execucao',
         'valor',
         'modalidade',
         'empresa_id',
+        'processo_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -34,12 +34,12 @@ class Contrato extends Model
 
     public function empresa()
     {
-        return $this->belongsTo(Empresa::class,'empresa_id');
+        return $this->belongsTo(Empresa::class);
     }
 
-    public function convenios()
+    public function processo()
     {
-        return $this->hasMany(Convenio::class);
+        return $this->belongsTo(Processo::class);
     }
 
     public function aditivos()

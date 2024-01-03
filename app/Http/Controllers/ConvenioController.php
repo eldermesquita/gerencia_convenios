@@ -27,22 +27,22 @@ class ConvenioController extends Controller
             $this->authorize('view-any', Convenio::class);
 
             $numero = $request->get('numero', null);
-            $virgencia = $request->get('virgencia', null);
+            $inicioVigencia = $request->get('inicioVigencia', null);
+            $fimVigencia = $request->get('fimVigencia', null);
             $virgenciaPrestacaoContas = $request->get('virgenciaPrestacaoContas', null);
-            $contratoId = $request->get('contrato_id', null);
-            $orgaoId = $request->get('orgao_id', null);
+            $orgaoId = $request->get('orgaoId', 0);
 
 
            // dd($virgencia);
 
-             $convenios = Convenio::with('orgao','contrato')->latest('id');
+             $convenios = Convenio::with('processo')->latest('id');
 
-             $convenios->when($virgencia, function ($q) use ($virgencia) {
+            /*  $convenios->when($virgencia, function ($q) use ($virgencia) {
                  $q->whereDate('virgencia',$virgencia);
 
                //  dd($q->get());
                 });
-
+ */
 
              //   dd($convenios->get());
 
@@ -50,7 +50,7 @@ class ConvenioController extends Controller
                     $q->where('numero', 'like', '%' . $numero . '%');
                 });
 
-                $convenios->when((request()->filled('contratoId')), function ($q) use ($contratoId) {
+               /*  $convenios->when((request()->filled('contratoId')), function ($q) use ($contratoId) {
                     $q->whereHas('contrato', function ($query) use ($contratoId) {
                         $query->where('id', $contratoId);
                     });
@@ -60,10 +60,10 @@ class ConvenioController extends Controller
                         $query->where('id', $orgaoId);
                     });
                 });
-
+                    */
                 //dd($convenios->paginate(20));
             return Inertia::render('Convenio/Index', [
-                 'filtro' => compact('numero', 'virgencia', 'virgenciaPrestacaoContas', 'contratoId', 'orgaoId'),
+                 'filtro' => compact('numero', 'inicioVigencia','fimVigencia', 'virgenciaPrestacaoContas',  'orgaoId'),
                  'convenios' => $convenios->paginate(20),
             ]);
         } catch (Exception $e) {
