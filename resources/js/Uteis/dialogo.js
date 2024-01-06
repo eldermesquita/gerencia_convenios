@@ -1,8 +1,5 @@
-// dialogo.js
 import Swal from "sweetalert2";
 import toastr from "toastr";
-
-// Configuração adicional do Toastr
 toastr.options = {
     showConfirmButton: false,
     closeButton: true,

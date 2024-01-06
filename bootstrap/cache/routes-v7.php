@@ -249,7 +249,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::lSPMkpC5tAjOKPWM',
+            '_route' => 'generated::EydwUPlk3okFDBzj',
           ),
           1 => NULL,
           2 => 
@@ -286,7 +286,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::qNACE6rYOuyCE7PN',
+            '_route' => 'generated::Bv7oLy0kqomOQFsh',
           ),
           1 => NULL,
           2 => 
@@ -341,7 +341,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::afLUt0g7aMkQjYXN',
+            '_route' => 'generated::PJqOHUFUgZxm8The',
           ),
           1 => NULL,
           2 => 
@@ -432,7 +432,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::euMLRDOwiTrTm3ZI',
+            '_route' => 'generated::DgGFFc5WguD4f8FY',
           ),
           1 => NULL,
           2 => 
@@ -976,6 +976,26 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'empresas.create',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/parlamentares-lista' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'parlamentares.lista',
           ),
           1 => NULL,
           2 => 
@@ -3354,7 +3374,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::lSPMkpC5tAjOKPWM' => 
+    'generated::EydwUPlk3okFDBzj' => 
     array (
       'methods' => 
       array (
@@ -3376,7 +3396,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::lSPMkpC5tAjOKPWM',
+        'as' => 'generated::EydwUPlk3okFDBzj',
       ),
       'fallback' => false,
       'defaults' => 
@@ -3429,7 +3449,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::qNACE6rYOuyCE7PN' => 
+    'generated::Bv7oLy0kqomOQFsh' => 
     array (
       'methods' => 
       array (
@@ -3449,7 +3469,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::qNACE6rYOuyCE7PN',
+        'as' => 'generated::Bv7oLy0kqomOQFsh',
       ),
       'fallback' => false,
       'defaults' => 
@@ -3538,7 +3558,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::afLUt0g7aMkQjYXN' => 
+    'generated::PJqOHUFUgZxm8The' => 
     array (
       'methods' => 
       array (
@@ -3558,7 +3578,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::afLUt0g7aMkQjYXN',
+        'as' => 'generated::PJqOHUFUgZxm8The',
       ),
       'fallback' => false,
       'defaults' => 
@@ -3757,7 +3777,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::euMLRDOwiTrTm3ZI' => 
+    'generated::DgGFFc5WguD4f8FY' => 
     array (
       'methods' => 
       array (
@@ -3777,7 +3797,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::euMLRDOwiTrTm3ZI',
+        'as' => 'generated::DgGFFc5WguD4f8FY',
       ),
       'fallback' => false,
       'defaults' => 
@@ -6222,6 +6242,44 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'empresas.destroy',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'parlamentares.lista' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'parlamentares-lista',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+        ),
+        'uses' => 'App\\Http\\Controllers\\ParlamentarController@lista',
+        'controller' => 'App\\Http\\Controllers\\ParlamentarController@lista',
+        'namespace' => NULL,
+        'prefix' => '/',
+        'where' => 
+        array (
+        ),
+        'as' => 'parlamentares.lista',
       ),
       'fallback' => false,
       'defaults' => 

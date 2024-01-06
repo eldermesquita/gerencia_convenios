@@ -27,44 +27,51 @@ class ConvenioController extends Controller
             $this->authorize('view-any', Convenio::class);
 
             $numero = $request->get('numero', null);
+            $numeroProcesso = $request->get('numeroProcesso', null);
             $inicioVigencia = $request->get('inicioVigencia', null);
             $fimVigencia = $request->get('fimVigencia', null);
-            $virgenciaPrestacaoContas = $request->get('virgenciaPrestacaoContas', null);
+            // $virgenciaPrestacaoContas = $request->get('virgenciaPrestacaoContas', null);
             $orgaoId = $request->get('orgaoId', 0);
 
 
-           // dd($virgencia);
+            $convenios = Convenio::with('processo.orgao','parlamentar')->latest('id');
 
-             $convenios = Convenio::with('processo')->latest('id');
+            $convenios->when(request()->filled('inicioVigencia'), function ($q) use ($inicioVigencia) {
+                $q->whereDate('inicio_vigencia', $inicioVigencia);
+            });
+            $convenios->when(request()->filled('fimVigencia'), function ($q) use ($fimVigencia) {
+                $q->whereDate('fim_vigencia', $fimVigencia);
+            });
 
-            /*  $convenios->when($virgencia, function ($q) use ($virgencia) {
-                 $q->whereDate('virgencia',$virgencia);
+            $convenios->when(request()->filled('numero'), function ($q) use ($numero) {
+                $q->where('numero', 'like', '%' . $numero . '%');
+            });
 
-               //  dd($q->get());
+            /*  $convenios->when(request()->filled('objeto'), function ($q) use ($objeto) {
+                $q->where('objeto', 'like', '%' . $objeto . '%');
+            }); */
+
+            $convenios->when((request()->filled('orgaoId') && $orgaoId != 0), function ($q) use ($orgaoId) {
+                $q->whereHas('processo', function ($query) use ($orgaoId) {
+                    $query->where('orgao_id', $orgaoId);
                 });
- */
-
-             //   dd($convenios->get());
-
-                $convenios->when(request()->filled('numero'), function ($q) use ($numero) {
-                    $q->where('numero', 'like', '%' . $numero . '%');
+            });
+            $convenios->when(request()->filled('numeroProcesso'), function ($q) use ($numeroProcesso) {
+                $q->whereHas('processo', function ($query) use ($numeroProcesso) {
+                    $query->where('numero', $numeroProcesso);
                 });
+            });
 
-               /*  $convenios->when((request()->filled('contratoId')), function ($q) use ($contratoId) {
-                    $q->whereHas('contrato', function ($query) use ($contratoId) {
-                        $query->where('id', $contratoId);
-                    });
-                });
-                $convenios->when((request()->filled('orgaoId') && $orgaoId != 0), function ($q) use ($orgaoId) {
-                    $q->whereHas('orgao', function ($query) use ($orgaoId) {
-                        $query->where('id', $orgaoId);
-                    });
-                });
-                    */
-                //dd($convenios->paginate(20));
             return Inertia::render('Convenio/Index', [
-                 'filtro' => compact('numero', 'inicioVigencia','fimVigencia', 'virgenciaPrestacaoContas',  'orgaoId'),
-                 'convenios' => $convenios->paginate(20),
+                'filtro' => compact(
+                    'numeroProcesso',
+                    'numero',
+                    'inicioVigencia',
+                    'fimVigencia',
+                    'orgaoId'
+                    //'virgenciaPrestacaoContas',
+                ),
+                'convenios' => $convenios->paginate(10),
             ]);
         } catch (Exception $e) {
             Session::flash('danger', $e->getMessage());
@@ -95,15 +102,22 @@ class ConvenioController extends Controller
      */
     public function store(ConvenioStoreRequest $request): RedirectResponse
     {
-        $this->authorize('create', Convenio::class);
 
-        $validated = $request->validated();
+        try {
 
-        $convenio = Convenio::create($validated);
+            $this->authorize('create', Convenio::class);
 
-        return redirect()
-            ->route('convenios.edit', $convenio)
-            ->withSuccess(__('crud.common.created'));
+            $validated = $request->validated();
+
+            $convenio = Convenio::create($validated);
+
+            return redirect()
+                ->route('convenios.edit', $convenio)
+                ->withSuccess(__('crud.common.created'));
+        } catch (Exception $e) {
+            Session::flash('danger', $e->getMessage());
+            return back()->withErrors('danger', $e->getMessage());
+        }
     }
 
     /**
@@ -119,17 +133,17 @@ class ConvenioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Convenio $convenio): View
+    public function edit(Request $request, Convenio $convenio)
     {
-        $this->authorize('update', $convenio);
+        try {
+            $this->authorize('update', $convenio);
+            $convenios = Convenio::with('processo')->where('id',$request->convenio->id)->get();
+            return Inertia::render('Convenio/Create', ['convenios' => $convenios[0]]);
 
-        $contratos = Contrato::pluck('numero', 'id');
-        $orgaos = Orgao::pluck('nome', 'id');
-
-        return view(
-            'app.convenios.edit',
-            compact('convenio', 'contratos', 'orgaos')
-        );
+        } catch (Exception $e) {
+            Session::flash('danger', $e->getMessage());
+            return back()->withErrors('danger', $e->getMessage());
+        }
     }
 
     /**
@@ -139,15 +153,20 @@ class ConvenioController extends Controller
         ConvenioUpdateRequest $request,
         Convenio $convenio
     ): RedirectResponse {
-        $this->authorize('update', $convenio);
 
-        $validated = $request->validated();
+        try {
 
-        $convenio->update($validated);
+            $this->authorize('update', $convenio);
+            $validated = $request->validated();
+            $convenio->update($validated);
 
-        return redirect()
-            ->route('convenios.edit', $convenio)
-            ->withSuccess(__('crud.common.saved'));
+            return redirect()
+                ->route('convenios.edit', $convenio)
+                ->withSuccess(__('crud.common.saved'));
+        } catch (Exception $e) {
+            Session::flash('danger', $e->getMessage());
+            return back()->withErrors('danger', $e->getMessage());
+        }
     }
 
     /**
