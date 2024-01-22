@@ -11,6 +11,8 @@ class Processo extends Model
     use HasFactory;
     use Searchable;
 
+
+    protected $table = 'processos';
     protected $fillable = [
         'numero',
         'ano',

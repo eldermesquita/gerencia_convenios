@@ -11,13 +11,12 @@ class Orgao extends Model
     use HasFactory;
     use Searchable;
 
+    protected $table = 'orgaos';
     protected $fillable = ['nome', 'esfera'];
-
     protected $searchableFields = ['*'];
-
     public $timestamps = false;
 
-    public function processos()
+    public function processo()
     {
         return $this->hasMany(Processo::class);
     }

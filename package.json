@@ -59,6 +59,7 @@
         "vue-chartjs": "^5.2.0",
         "vue-flatpickr-component": "^11.0.3",
         "vue-select": "^4.0.0-beta.6",
+        "vue3-form-wizard": "^0.2.3",
         "ziggy-js": "^1.6.0"
     }
 }

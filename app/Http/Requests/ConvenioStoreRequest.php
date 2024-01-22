@@ -19,7 +19,7 @@ class ConvenioStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        //  dd(parent::all());
+        //dd(parent::all());
         return [
             'numero' => ['required', 'max:50', 'string'],
             'ano' => ['required', 'numeric'],
@@ -74,7 +74,7 @@ class ConvenioStoreRequest extends FormRequest
             'processo.modalidade.required' => 'O campo modalidade é obrigatório!',
             //'processo.convenio_id.required' => 'O campo denominação é obrigatório!',
 
-           /*
+            /*
            'denominacao_id.required' => 'O campo denominação é obrigatório!',
             'denominacao_id.exists' => 'O campo denominação selecionado é inválido!',
             'categoria_id.required' => 'O campo denominação é obrigatório!',

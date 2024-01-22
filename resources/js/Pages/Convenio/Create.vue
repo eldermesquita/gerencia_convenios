@@ -4,7 +4,29 @@
             <FlashMessage :flash="flash" />
         </div>
 
-        <h1 class="mb-1 h3"> {{ $props.errors?.processo?.ano }}</h1>
+        <!-- <div v-if="Object.keys(errors).length > 0">
+
+                                     <div v-for="(value, key) in errors.processo" :key="key">
+                                                {{ key }}: {{ value }}
+                                            </div>
+                                    {{ errors.processo.ano }}
+                                </div>-->
+        <pre>
+                                          ---ano-----  {{ errors.ano }}
+                                          ---length-----  {{ Object.keys(errors).length > 0 }}
+                                          ----processo----  {{ processo.ano }}
+
+                                 <!--   total  {{ ( Object.keys(errors?.processo).length) }}
+                                   total  {{ ( Object.keys(errors).length) }} -->
+
+                                     <div v-for="(value, key) in errors" :key="key" >
+                                        <span v-if="key === 'processo.ano'">
+                                            {{ key }}: {{ value }}
+                                        </span>
+                                     </div>
+                                </pre>
+
+
         <h1 class="mb-1 h3">Novo convênios </h1>
 
         <div class="card">
@@ -15,11 +37,11 @@
                     <div class="row">
                         <div class="mb-1 col-md-6">
                             <div class="mb-1 form-floating">
-                                <select class="form-select" ref="refOIrgaoId" v-model="form.orgao_id"
+                                <select class="form-select" ref="refOIrgaoId" v-model="form.processo.orgao_id"
                                     aria-label="Selecione o orgão" :class="{ 'is-invalid': errors.processo?.orgao_id }">
-                                    <option selected> -- Selecione -- </option>
+                                    <option :selected="form.processo.orgao_id === 0" value="0"> -- Selecione -- </option>
                                     <option v-for="(item, index) in  listaOrgoes" :key="index" :value="item.id"
-                                        :selected="form.orgao_id === item.id">
+                                        :selected="form.processo.orgao_id === item.id">
                                         {{ item.nome }}
                                     </option>
                                 </select>
@@ -86,30 +108,35 @@
                                         </select>
                                         <label for="modalidade"> Modalidade <span class="text-danger">*</span></label>
                                         <div v-if="errors.processo?.modalidade" class="invalid-feedback">
-                                            {{ errors.processo?.modalidade }}
+                                            {{ errors.processo.modalidade }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <div class="mb-1 form-floating">
                                         <input type="text" class="mb-1 form-control"
-                                            :class="{ 'is-invalid': errors.processo?.numero }"
+                                            :class="{ 'is-invalid': errors?.processo?.numero }"
                                             v-model="form.processo.numero" ref="refProcessoNumero" placeholder="Nº ">
                                         <label class="form-label" for="processo.numero">Número:
                                             <span class="text-danger">*</span></label>
-                                        <div v-if="errors.processo?.numero" class="invalid-feedback">
-                                            {{ errors.processo?.numero }}
+                                        <div v-if="errors?.processo?.numero" class="invalid-feedback">
+                                            {{ errors.processo.numero }}
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <div class="mb-1 col-md-2">
                                     <div class="mb-1 form-floating">
                                         <input type="text" class="mb-1 form-control"
                                             :class="{ 'is-invalid': errors.processo?.ano }" v-model="form.processo.ano"
                                             ref="refProcessoAno" placeholder="Ano processo">
                                         <label for="processo.ano">Ano <span class="text-danger">*</span></label>
-                                        <div v-if="errors.processo?.ano" class="invalid-feedback">
-                                            {{ errors.processo?.ano }}
+                                        <div v-if="errors?.processo?.ano" class="invalid-feedback">
+                                            {{ errors?.processo?.ano }}
+                                        </div>
+                                        <div v-if="errors?.processo?.ano" class="invalid-feedback">
+                                            {{ errors.processo.ano }}
                                         </div>
                                     </div>
                                 </div>
@@ -260,7 +287,7 @@
 
                     <div class="modal-footer">
                         <a :href="route('convenios.index')" class="btn btn-secondary ">
-                        <i class="fas fa-sign-in-alt"></i> Sair </a>
+                            <i class="fas fa-sign-in-alt"></i> Sair </a>
 
                         <button @click.prevent="salvar()" class="m-1 btn btn-primary" :disabled="botaoDesabilitado">
                             <i v-show="!botaoDesabilitado" class="far fa-save"></i>
@@ -279,11 +306,8 @@
     </div>
 </template>
 <script setup>
-import { ref, defineProps, computed, onMounted, getCurrentInstance } from 'vue';
+import { ref, defineProps, computed, onMounted, watch, watchEffect } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-/* import { Link } from '@inertiajs/vue3' */
-/* import { router } from '@inertiajs/vue3' */
-
 import FlashMessage from "@/Components/FlashMessage.vue";
 import { exibirAlerta, exibirAlerta2, exibirLoading, fecharLoading } from '@/Uteis/dialogo';
 import axios from '@/Uteis/axiosInterceptor';
@@ -292,10 +316,42 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { formatarDataDB } from '@/Uteis/funcoes';
 
-/* const props = defineProps(['convenios', 'errors', 'flash', 'auth']); */
-const { convenios, errors, flash, auth } = defineProps(['convenios', 'errors', 'flash', 'auth']);
+
+const { convenios, errors, flash, auth, user } = defineProps(['convenios', 'errors', 'flash', 'auth', 'user']);
+
+/* const flash = computed(() => usePage().props.value.flash);
+const errors = computed(() => usePage().props.value.errors); */
+
+/* watch(
+
+    if(!isEmpty(errors)) {
+            nextTick(show);
+        }
+
+    { deep: true }
+); */
+
+
+/* defineProps({
+    errors: {
+        type: Object
+    },
+    convenios: {
+        type: Object
+    },
+    flash: {
+        type: Object
+    },
+    auth: {
+        type: Object
+    },
+    user: {
+        type: Object
+    }
+}) */
+
 const botaoDesabilitado = ref(false);
-const modalidadeLista = ref(['Concorrência', 'Convite', 'Tomada de preço', 'Concurso', 'Pregão', 'Leilão']);
+const modalidadeLista = ref('../Convenio/Processo/modalidade.json');
 
 const form = ref({
     id: null,
@@ -338,9 +394,15 @@ const configVMoney = computed(() => {
 const listaOrgoes = ref([]);
 const listaParlamentares = ref([]);
 
+
 onMounted(async () => {
 
-console.log('tag', convenios)
+    /* const userId = usePage().props.value.auth.admin
+    console.log('$userId', userId) */
+    /*     console.log('$errors1', validacao)
+        console.log('$errors1', hasErrors) */
+    /*
+        console.log('$page2', page) */
     // Checar se tem objeto e sincroniza com o form (usado para EDITAR)
     if (typeof convenios !== 'undefined') {
 
@@ -377,8 +439,6 @@ console.log('tag', convenios)
 });
 
 
-
-
 /*****************************************************************
  *  Salvar e Editar
  *****************************************************************/
@@ -412,12 +472,8 @@ const salvar = async () => {
         onSuccess: () => {
             exibirAlerta("Salvo com sucesso!", form.value.numero, "success");
         },
-        onError: (errors1) => {
-            console.log('----key---', errors1)
-            for (let [key, value] of Object.entries(errors1)) {
-
-
-
+        onError: (errors) => {
+            for (let [key, value] of Object.entries(errors)) {
                 exibirAlerta2('', value, "error");
             }
         },
